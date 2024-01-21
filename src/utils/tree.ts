@@ -1,31 +1,23 @@
 import { FolderAttributes } from "../types/category.type";
 
 export class TreeNode<FolderAttributes> {
-    key: number;
+    // key: number;
     id: number;
     label: string;
     children: Array<FolderAttributes>;
 
-    constructor(id: number, key: number, value: string, parent = null) {
-      this.key = key;
+    constructor(id: number, value: string, parent = null) {
+      // this.key = key;
       this.id = id;
       this.label = value;
       this.children = [];
-    }
-  
-    get isLeaf() {
-      return this.children.length === 0;
-    }
-  
-    get hasChildren() {
-      return !this.isLeaf;
     }
 }
 
 export class Tree {
   root: FolderAttributes;
-  constructor(id: number, key: number, value: string) {
-    this.root = new TreeNode(id, key, value);
+  constructor(id: number, value: string) {
+    this.root = new TreeNode(id, value);
   }
 
   postOrderTraversal(node = this.root): any {
@@ -42,12 +34,12 @@ export class Tree {
     }
   }
 
-  insert(id: number, parentNodeKey: number, key: number, value: string) {
+  insert(id: number, parentNodeId: number, value: string) {
     let nodes = this.postOrderTraversal();
     if(!Array.isArray(nodes)) nodes = [nodes];
     for (let node of nodes) {
-      if (node.key === parentNodeKey) {
-        node.children.push(new TreeNode(id, key, value));
+      if (node.id === parentNodeId) {
+        node.children.push(new TreeNode(id, value));
         return true;
       }
     }

@@ -7,7 +7,7 @@ export type CategoryAttributes = {
 
 export type FolderAttributes = {
     id: number,
-    key: number,
+    key?: number,
     label: string,
     children: Array<FolderAttributes>
 }

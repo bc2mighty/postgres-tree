@@ -30,8 +30,8 @@ sequelize.query('CREATE EXTENSION IF NOT EXISTS ltree');
 sequelize.query(`
     CREATE TABLE IF NOT EXISTS categories (
         id 	          SERIAL PRIMARY KEY ,
-        label         VARCHAR(50),
-        labelPath     VARCHAR(50),
+        folder         VARCHAR(50),
+        folderPath     VARCHAR(50),
         fullPath      ltree
     );
 `);
