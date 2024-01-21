@@ -12,7 +12,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-app.use('/category', categoryRoute)
+app.use('/categories', categoryRoute)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

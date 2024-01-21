@@ -1,13 +1,11 @@
 import { FolderAttributes } from "../types/category.type";
 
 export class TreeNode<FolderAttributes> {
-    // key: number;
     id: number;
     label: string;
     children: Array<FolderAttributes>;
 
     constructor(id: number, value: string, parent = null) {
-      // this.key = key;
       this.id = id;
       this.label = value;
       this.children = [];

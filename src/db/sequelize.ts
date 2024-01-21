@@ -35,6 +35,4 @@ sequelize.query(`
         fullPath      ltree
     );
 `);
-//CHECK (label ~* '^[A-Za-z0-9_]$'),
- //CHECK (labelPath ~* '^[A-Za-z0-9_]$'),
 export default sequelize; 

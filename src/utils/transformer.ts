@@ -1,8 +1,13 @@
 import { CategoryAttributes } from "../types/category.type";
 import { Tree } from "./tree";
 
+/**
+ * 
+ * @param dbTreeResult 
+ * @returns 
+ */
 export const transformDbTree = async(dbTreeResult: CategoryAttributes[]) => {
-    if(!dbTreeResult.length) return [];
+    if(!dbTreeResult.length) return false;
 
     const rootNodePath = dbTreeResult[0].fullpath.split('.')
     const treeKeys = {

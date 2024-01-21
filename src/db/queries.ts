@@ -41,6 +41,11 @@ export const fetchFullPath = async(id: string) => {
     return result;
 }
 
+/**
+ * 
+ * @param fullPath 
+ * @returns 
+ */
 export const fullPathExists = async(fullPath: string) => {
     let query = 'SELECT count(*) from categories where fullPath = ?';
     const result = await sequelize.query<CategoryAttributes & {count: string}>(query, {
@@ -64,7 +69,7 @@ export const removeSubTree = async(id: string): Promise<boolean> => {
         );
     `
     await sequelize.query(query, {
-        type: QueryTypes.SELECT,
+        type: QueryTypes.DELETE,
         replacements: [Number(id)],
     })
     return true;
@@ -77,12 +82,13 @@ export const moveSubTree = async(parentFullPath: string, categoryFullPath: strin
         WHERE fullPath ~ ?;
     `;
     await sequelize.query(query, {
-        type: QueryTypes.SELECT,
+        type: QueryTypes.UPDATE,
         replacements: [
             parentFullPath,
             categoryFullPath,
             `${categoryFullPath}.*`
         ],
     })
+    
     return true;
 }

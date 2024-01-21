@@ -3,6 +3,9 @@ import { createCategory, fetchFullPath, fetchSubTree, fullPathExists, moveSubTre
 import { transformDbTree } from "../utils/transformer";
 export const router = Router();
 
+/**
+ * 
+ */
 router.post('/', async(req: Request, res: Response) => {
     try {
         let queryResult;
@@ -13,10 +16,15 @@ router.post('/', async(req: Request, res: Response) => {
         // check if parent category exists and reset fullPath
         if(parentId) {
             let [parent] = await fetchFullPath(parentId)
+            if(!parent) {
+                return res.status(400).json({
+                    message: `Parent Category with id '${parentId}' not found`
+                })
+            }
             if(parent) fullPath = `${parent?.fullpath}.${labelPath}`
         }
 
-        // check if fullpath exists and return false
+        // check if new category fullpath exists
         if(fullPath) {
             let count = await fullPathExists(fullPath);
             if(Number(count) > 0) {
@@ -37,6 +45,9 @@ router.post('/', async(req: Request, res: Response) => {
     }
 });
 
+/**
+ * 
+ */
 router.get('/:id', async(req: Request, res: Response) => {
     const {id} = req.params;
     let queryResult;
@@ -45,7 +56,11 @@ router.get('/:id', async(req: Request, res: Response) => {
         
         let subTree = await transformDbTree(queryResult);
         
-        return res.status(200).json(subTree.root);
+        return res.status(!subTree ? 404 : 200).json(
+            !subTree 
+                ? {message: `No Category found with id: ${id}`}
+                : subTree.root
+            );
     } catch(error) {
         console.log(error);
         return res.status(400).json({
@@ -54,6 +69,9 @@ router.get('/:id', async(req: Request, res: Response) => {
     }
 });
 
+/**
+ * 
+ */
 router.delete('/:id', async(req: Request, res: Response) => {
     const {id} = req.params;
     let queryResult;
@@ -69,7 +87,10 @@ router.delete('/:id', async(req: Request, res: Response) => {
     }
 })
 
-router.put('/', async(req: Request, res: Response) => {
+/**
+ * 
+ */
+router.patch('/', async(req: Request, res: Response) => {
     const {categoryId, newParentId} = req.body;
     try {
         const [categoryFullPath] = await fetchFullPath(categoryId);
