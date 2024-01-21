@@ -2,7 +2,7 @@ import { QueryTypes } from "sequelize"
 import sequelize from "./sequelize"
 import { CategoryAttributes } from "../types/category.type";
 
-export const createCategory = async(label: string, labelPath: string, fullPath: string) => {
+export const createNewCategory = async(label: string, labelPath: string, fullPath: string) => {
     let query = 'INSERT INTO categories(label, labelPath, fullPath) VALUES(?, ?, ?)';
     const result = await sequelize.query(query, {
         type: QueryTypes.INSERT,
@@ -56,6 +56,24 @@ export const fullPathExists = async(fullPath: string) => {
     return count;
 }
 
+export const moveSubTree = async(parentFullPath: string, categoryFullPath: string) => {
+    let query = `
+        UPDATE categories 
+        SET fullPath = ? || subpath(fullPath, nlevel(?) - 1, nlevel(fullPath))
+        WHERE fullPath ~ ?;
+    `;
+    await sequelize.query(query, {
+        type: QueryTypes.UPDATE,
+        replacements: [
+            parentFullPath,
+            categoryFullPath,
+            `${categoryFullPath}.*`
+        ],
+    })
+    
+    return true;
+}
+
 export const removeSubTree = async(id: string): Promise<boolean> => {
     let query = `
         DELETE FROM categories where id IN(
@@ -72,23 +90,5 @@ export const removeSubTree = async(id: string): Promise<boolean> => {
         type: QueryTypes.DELETE,
         replacements: [Number(id)],
     })
-    return true;
-}
-
-export const moveSubTree = async(parentFullPath: string, categoryFullPath: string) => {
-    let query = `
-        UPDATE categories 
-        SET fullPath = ? || subpath(fullPath, nlevel(?) - 1, nlevel(fullPath))
-        WHERE fullPath ~ ?;
-    `;
-    await sequelize.query(query, {
-        type: QueryTypes.UPDATE,
-        replacements: [
-            parentFullPath,
-            categoryFullPath,
-            `${categoryFullPath}.*`
-        ],
-    })
-    
     return true;
 }
