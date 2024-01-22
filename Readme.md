@@ -27,7 +27,8 @@ cp env.example .env
 ```
 npm run start:dev
 ```
-Download a sample postman collection to make calls to the REST APIs provided in this project here [Postman Doc](Event_Management.postman_collection.json). Import this collection into your Postman Desktop Application and ensure you replace the root URL in the postman requests with the URL that the application is running on. There are postman examples with sample responses in each request.
+Download a sample postman collection to make calls to the REST APIs provided in this project here [Postman Doc](Event_Management.postman_collection.json). Import this collection into your Postman Desktop Application and ensure you replace the root URL in the postman requests with the URL that the application is running on. There are postman examples with sample responses in each request. Below is a description of the postman API calls also:
+![Postman request sample](request-example.gif)
 
 ## Architecture
 1. Database Schema
