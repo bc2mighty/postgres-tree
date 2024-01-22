@@ -1,10 +1,10 @@
 import {describe, expect, test} from '@jest/globals';
 import request from 'supertest';
-import { app } from './src';
+import { app } from '..';
 import { Sequelize, DataType } from "sequelize";
-import { 
-    createCategory
-} from './src/db/queries';
+// import { 
+//     createCategory
+// } from './src/db/queries';
 
 const mockedSequelize = new Sequelize({
     dialect: 'postgres'
