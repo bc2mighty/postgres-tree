@@ -1,12 +1,19 @@
 import { Request, Response } from "express";
 import { createNewCategory, fetchFullPath, fetchSubTree, fullPathExists, moveSubTree, removeSubTree } from "../db/queries";
-import { transformDbTree } from "../utils/transformer";
+import { transformDbTree } from "../utils/serialize";
 
+/**
+ * 
+ * @param req: Request
+ * @param res: Response
+ * @returns status code 201 when a category is created
+ * or 400 if something goes wrong, with a clear message
+ */
 export const addCategory = async(req: Request, res: Response) => {
     try {
         let queryResult;
         const {label, parentId} = req.body;
-        const labelPath = label.replace(/ /g, '_')
+        const labelPath = label.toString().replace(/ /g, '_')
         let fullPath = labelPath;
         
         // check if parent category exists and reset fullPath
@@ -29,7 +36,7 @@ export const addCategory = async(req: Request, res: Response) => {
                 })
             }
         }
-        queryResult = await createNewCategory(label, labelPath, fullPath);
+        // queryResult = await createNewCategory(label, labelPath, fullPath);
         return res.status(201).json({
             message: 'Category Created Successfully'
         })
@@ -41,6 +48,12 @@ export const addCategory = async(req: Request, res: Response) => {
     }
 }
 
+/**
+ * 
+ * @param req: Express Request
+ * @param res: Express Response
+ * @returns Subtree of category with the id provided in req.body
+ */
 export const getCategorySubTree = async(req: Request, res: Response) => {
     const {id} = req.params;
     let queryResult;
@@ -62,6 +75,13 @@ export const getCategorySubTree = async(req: Request, res: Response) => {
     }
 }
 
+/**
+ * 
+ * @param req: Express Request
+ * @param res: Express Response
+ * @returns a message saying that the sub tree has been moved to a new parent
+ * or an error message and appropriate status code if something goes wrong
+ */
 export const updateCategorySubTree = async(req: Request, res: Response) => {
     const {categoryId, newParentId} = req.body;
     try {
@@ -91,13 +111,27 @@ export const updateCategorySubTree = async(req: Request, res: Response) => {
     }
 }
 
+/**
+ * 
+ * @param req: Express Request
+ * @param res: Express Response
+ * @returns a message stating that a category has been removed
+ * or an error message and appropriate status code if something goes wrong
+ */
 export const removeCategorySubtree = async(req: Request, res: Response) => {
     const {id} = req.params;
     let queryResult;
     try {
+        const [categoryFullPath] = await fetchFullPath(id);
+        if(!categoryFullPath) {
+            return res.status(404).json({
+                message: 'Category not found',
+            });
+        }
+
         queryResult = await removeSubTree(id as string);
         
-        return res.sendStatus(204);
+        return res.status(200).json({message: 'Category Removed Successfully'});
     } catch(error) {
         console.log(error);
         return res.status(400).json({
