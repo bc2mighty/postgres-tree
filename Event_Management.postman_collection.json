@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"parentId\": 35,\n    \"label\": \"Gwagwalada\"\n}",
+					"raw": "{\n    \"parentId\": 17,\n    \"label\": \"Wuse\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -158,14 +158,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/categories/6",
+					"raw": "localhost:3000/categories/3",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"categories",
-						"6"
+						"3"
 					]
 				}
 			},
@@ -242,18 +242,115 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/categories/13",
+					"raw": "localhost:3000/categories/24",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"categories",
-						"13"
+						"24"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Remove a category - bad request",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/categories/30",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories",
+								"30"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"route id must be an integer\"\n}"
+				},
+				{
+					"name": "Remove a category",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/categories/30",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories",
+								"30"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Category not found\"\n}"
+				},
+				{
+					"name": "Remove a category",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/categories/30",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories",
+								"30"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Category Removed Successfully\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Move subtree to another parent",
@@ -262,7 +359,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"newParentId\": 21,\n    \"categoryId\": 28\n}",
+					"raw": "{\n    \"newParentId\": 8,\n    \"categoryId\": 31\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -280,7 +377,88 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Move subtree to another parent - success",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newParentId\": 8,\n    \"categoryId\": 31\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/categories",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Category moved successfully\"\n}"
+				},
+				{
+					"name": "Move subtree to another parent",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newParentId\": \"8\",\n    \"categoryId\": 31\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/categories",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"new parent id must be an integer\"\n}"
+				}
+			]
 		}
 	]
 }

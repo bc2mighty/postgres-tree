@@ -1,7 +1,7 @@
 ### Event Management Application
 
 * [Installation](#Installation)
-* [Application Structure](#Application Structure)
+* [Architecture](#Architecture)
 
 #### Installation
 ###### Clone the repo
@@ -20,9 +20,9 @@ cp env.example .env
 ```
 npm run start:dev
 ```
-Download a sample postman collection to make calls to the REST APIs provided in this project. Ensure you replace the root URL in the postman requests with the URL that the application is running on. [Postman Doc(Event_Management.postman_collection.json)
+Download a sample postman collection to make calls to the REST APIs provided in this project here [Postman Doc](Event_Management.postman_collection.json). Ensure you replace the root URL in the postman requests with the URL that the application is running on. There are postman examples with sample responses in each request
 
-#### Application Structure
+#### Architecture
 1. Database Schema
 
 The project uses label tree (also known as ltree) database structure which is faster than Recursive Common Table Expression (CTE) and Static Tree Schema. The documentation for this can be found in <a  target="_blank" href="https://www.postgresql.org/docs/9.1/ltree.html">Postgres ltree</a>. This technique reduces the complexity of tree traversal queries to simple wildcard sort of expressions like `Label1` to match the root of the tree, `Label1.*` to match descendants of `Label1`, and `*.Label1.*` to match both ancestors and descendants of `Label1`
