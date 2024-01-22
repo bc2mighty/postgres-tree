@@ -12,7 +12,7 @@ git clone https://github.com/bc2mighty/event-management.git
 ```
 npm i
 ```
-###### Copy the env file and rename the env file to your Postgres database configuration
+###### Copy the env file and fill the env variables with your Postgres database configuration
 ```
 cp env.example .env
 ```
