@@ -1,16 +1,16 @@
-### Event Management Application
+## Event Management Application
 
 * [Requirements](#Requirements)
 * [Installation](#Installation)
 * [Architecture](#Architecture)
 
-#### Requirements
+## Requirements
 Ensure you have the following installed
 1. NodeJS version 20x preferrably
 2. Typescript
 3. PostgreSQL 
 
-#### Installation
+## Installation
 ###### Clone the repo
 ```
 git clone https://github.com/bc2mighty/event-management.git
@@ -29,7 +29,7 @@ npm run start:dev
 ```
 Download a sample postman collection to make calls to the REST APIs provided in this project here [Postman Doc](Event_Management.postman_collection.json). Ensure you replace the root URL in the postman requests with the URL that the application is running on. There are postman examples with sample responses in each request
 
-#### Architecture
+## Architecture
 1. Database Schema
 
 The project uses label tree (also known as ltree) database structure which is faster than Recursive Common Table Expression (CTE) and Static Tree Schema. The documentation for this can be found here <a  target="_blank" href="https://www.postgresql.org/docs/9.1/ltree.html">Postgres ltree</a>. This technique reduces the complexity of tree traversal queries to simple wildcard sort of expressions like `Label1` to match the root of the tree, `Label1.*` to match descendants of `Label1`, and `*.Label1.*` to match both ancestors and descendants of `Label1`

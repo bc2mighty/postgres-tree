@@ -36,7 +36,7 @@ export const addCategory = async(req: Request, res: Response) => {
                 })
             }
         }
-        // queryResult = await createNewCategory(label, labelPath, fullPath);
+        queryResult = await createNewCategory(label, labelPath, fullPath);
         return res.status(201).json({
             message: 'Category Created Successfully'
         })
