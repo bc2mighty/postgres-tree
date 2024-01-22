@@ -1,7 +1,14 @@
 ### Event Management Application
 
+* [Requirements](#Requirements)
 * [Installation](#Installation)
 * [Architecture](#Architecture)
+
+#### Requirements
+Ensure you have the following installed
+1. NodeJS version 20x preferrably
+2. Typescript
+3. PostgreSQL 
 
 #### Installation
 ###### Clone the repo
